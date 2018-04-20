@@ -1,0 +1,31 @@
+{
+    "name": "mean-stack-angular2",
+    "version": "1.0.0",
+    "description": "MEAN Stack Angular 2",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/oguzzaydin/Mean-Stack-Blog.git"
+    },
+    "keywords": [
+        "MEAN",
+        "Stack",
+        "Blog",
+        "with",
+        "Angular2"
+    ],
+    "author": "Oguzhan AYDIN",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/oguzzaydin/Mean-Stack-Blog/issues"
+    },
+    "homepage": "https://github.com/oguzzaydin/Mean-Stack-Blog#readme",
+    "dependencies": {
+        "express": "^4.16.3",
+        "mongoose": "^5.0.15",
+        "morgan": "^1.9.0"
+    }
+}
