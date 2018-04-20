@@ -24,6 +24,7 @@
     },
     "homepage": "https://github.com/oguzzaydin/Mean-Stack-Blog#readme",
     "dependencies": {
+        "body-parser": "^1.18.2",
         "express": "^4.16.3",
         "mongoose": "^5.0.15",
         "morgan": "^1.9.0"
