@@ -11,8 +11,6 @@ const bodyParser = require('body-parser');
 app.use(morgan('dev')); //console log  server request/response time
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
@@ -20,14 +18,16 @@ mongoose.connect(config.uri, (err) => {
         console.log('Could Not connect to database: ', err);
     } else {
 
-        console.log('connect to database MongoDB');
+        console.log('connect to database MongoDB :' + config.db);
     }
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/dist/'));
-
 app.use('/authentication', authentication);
 
+// Connect server to Angular 2 Index.html
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
 });
