@@ -1,0 +1,240 @@
+<!-- =====================================================================
+                       REGISTER FORM
+    ===================================================================== -->
+
+
+
+<div class="container">
+
+
+    <form class="form-horizontal" [formGroup]="form" (submit)="onRegisterSubmit()">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Register New User</h2>
+                <div class="row show-hide-message">
+                    <div [ngClass]="messageClass">
+                        {{ message }}
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+
+
+        <!-- =====================================================================
+                        USERNAME FIELDS
+        ===================================================================== -->
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="username">Username</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0" [ngClass]="{'has-error':(form.controls.username.errors && form.controls.username.dirty && !usernameValid && form.controls.username.dirty), 'has-success':!form.controls.username.errors && usernameValid}">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" name="username" formControlName="username" class="form-control" id="username" placeholder="John Doe" (blur)="checkUsername()">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- =====================================================================
+                         USERNAME VALİDATİON MESSAGES DİVS
+           ===================================================================== -->
+            <div class="col-md-3" *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                      <i class="fa fa-close">Username is required field</i>
+                      </span>
+                </div>
+            </div>
+
+            <div class="col-md-3" *ngIf="form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength && form.controls.username.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                <i class="fa fa-close">Minimum characters: 3, Maximum characters: 15</i>
+                </span>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                  <i class="fa fa-close">Username must not have special characters</i>
+                  </span>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="usernameMessage">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                      <i class="fa fa-close">{{ usernameMessage }}</i>
+                      </span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- =====================================================================
+                         EMAİL FIELD
+        ===================================================================== -->
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-Mail Address</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0" [ngClass]="{'has-error':(form.controls.email.errors && form.controls.email.dirty), 'has-success':!form.controls.email.errors}">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <input type="text" name="email" formControlName="email" class="form-control" id="email" placeholder="you@example.com" (blur)="checkEmail()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- =====================================================================
+                         EMAİL VALİDATİON MESSAGES DİVS
+            ===================================================================== -->
+
+
+            <div class="col-md-3" *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                      <i class="fa fa-close">Email is required field</i>
+                      </span>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+              <i class="fa fa-close">Minimum characters: 5, Maximum characters: 30</i>
+              </span>
+                </div>
+            </div>
+
+            <div class="col-md-3" *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                    <i class="fa fa-close">This must be a valid email</i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-3" *ngIf="emailMessage">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                        <i class="fa fa-close">{{emailMessage}}</i>
+                        </span>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================================
+                        PASSWORD FIELD
+        ===================================================================== -->
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="password">Password</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0" [ngClass]="{'has-error':(form.controls.password.errors && form.controls.password.dirty), 'has-success':!form.controls.password.errors}">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                        <input type="password" formControlName="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =====================================================================
+                         PASSWORD VALİDATİON MESSAGES DİVS
+            ===================================================================== -->
+
+            <div class="col-md-3" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                          <i class="fa fa-close">Password is required field</i>
+                      </span>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength && form.controls.password.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+              <i class="fa fa-close">Minimum characters: 8, Maximum characters: 35</i>
+              </span>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                  <i class="fa fa-close">Must have at least one uppercase, lowercase, special character, and number</i>
+                  </span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================================
+                         CONFIRM FIELDS
+        ===================================================================== -->
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="confirm">Confirm Password</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0" [ngClass]="{'has-error':(form.controls.confirm.errors && form.controls.confirm.dirty), 'has-success':!form.controls.confirm.errors}">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-repeat"></i>
+                        </div>
+                        <input type="password" formControlName="confirm" name="confirm" class="form-control" id="confirm" placeholder="Confirm password" required>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- =====================================================================
+                         CONFIRM VALİDATİON MESSAGES DİVS
+            ===================================================================== -->
+            <div class="col-md-3" *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                        <i class="fa fa-close">Confirm field is required</i>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3" *ngIf="form.errors?.matchingPasswords && form.controls.confirm.dirty">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                <i class="fa fa-close">Password do not match</i>
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" [disabled]="!form.valid || processing" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+
+<!-- <p>Username: {{form.controls.username.value}}</p>
+<p>Password: {{form.controls.password.value}}</p>
+<p>Email: {{form.controls.email.value}}</p>
+<p>Confirm: {{form.controls.confirm.value}}</p> -->
