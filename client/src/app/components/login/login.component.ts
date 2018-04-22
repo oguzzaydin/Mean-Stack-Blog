@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../services';
 import { Router } from '@angular/router';
+import { AuthGuard } from '../../guards';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,8 @@ export class LoginComponent implements OnInit {
   message;
   processing = false;
   form: FormGroup;
-  constructor(private formBuilder: FormBuilder,private authService:AuthService,private router:Router) {
+  previousUrl;
+  constructor(private formBuilder: FormBuilder,private authService:AuthService,private router:Router,private authGuard: AuthGuard) {
     this.createForm();
   }
 
@@ -25,8 +28,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-  }
 
   disableForm() {
     this.form.controls['username'].disable();
@@ -57,6 +58,11 @@ export class LoginComponent implements OnInit {
         this.message = data.message;
         this.authService.storeUserData(data.token, data.user);
         setTimeout(() => {
+            if(this.previousUrl) {
+              this.router.navigate([this.previousUrl]);
+            } else {
+              this.router.navigate(['/dashboard']);
+            }
           this.router.navigate(['/dashboard']);
         }, 2000);
         this.processing = true;
@@ -65,6 +71,13 @@ export class LoginComponent implements OnInit {
     })
 
   }
-
+  ngOnInit() {
+    if(this.authGuard.redirectUrl) {
+      this.messageClass = 'alert alert-danger';
+      this.message = 'You must be logged in to view that page';
+      this.previousUrl = this.authGuard.redirectUrl;
+      this.authGuard.redirectUrl = undefined;
+    }
+  }
 
 }
