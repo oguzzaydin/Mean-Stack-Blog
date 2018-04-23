@@ -1,0 +1,110 @@
+<h1 class="page-header">Blog Feed</h1>
+
+
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
+<button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()"><i class="fa fa-spinner"></i>&nbsp;&nbsp;Reload</button>
+
+<!-- New Blog Form -->
+<form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+    <div class="form-group">
+
+        <!-- Title Input -->
+        <label for="title"></label>
+        <div [ngClass]="{'has-success': form.controls.title.valid, 'has-error':form.controls.title.dirty && form.controls.title.errors}">
+            <input type="text" name="title" class="form-control" placeholder="*Blog title" autocomplete="off" formControlName="title">
+        </div>
+        <ul class="help-block">
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required</li>
+            <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) ||
+             (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length:50, Min Length:5</li>
+            <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a letter or number</li>
+        </ul>
+
+        <!-- Body Input -->
+        <label for="body"></label>
+        <div [ngClass]="{'has-success': form.controls.body.valid, 'has-error':form.controls.body.dirty && form.controls.body.errors}">
+            <textarea name="body" class="form-control" id="" cols="80" rows="8" placeholder="*Blog Body" formControlName="body"></textarea>
+        </div>
+        <ul class="help-block">
+            <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required</li>
+            <li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) ||
+              (form.controls.body.dirty && form.controls.body.errors?.maxlength)">Max length:50, Min Length:5</li>
+
+        </ul>
+
+        <button [disabled]="processing" name="button" type="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
+
+        <button [disabled]="processing || !form.valid" name="button" type="submit" class="btn btn-success">submit</button>
+
+
+
+
+
+
+    </div>
+
+</form>
+
+<div *ngIf="!newPost" style="padding-top:2rem;">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Post Title</h3>
+        </div>
+        <div class="card-body card-text">
+            Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet,
+            consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter
+            elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit
+        </div>
+
+        <!-- Footer Start -->
+        <div class="card-footer">
+
+            <p class="card-text"><strong>Posted By : </strong>oguzhan</p>
+            <p class="card-text"><strong>Date:</strong>June 20, 2017</p>
+
+            <div>
+                <p class="card-text"><strong>Likes :</strong>25</p>
+                <p class="card-text"><strong>Dislikes :</strong>12</p>
+
+            </div>
+            <a href=""><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+            <a href=""><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+
+            <!-- Likes dropdown -->
+            <div class="dropdown">
+                <button class=" btn btn-sm btn-success"><i class="fa fa-thumbs-up">&nbsp;</i>Likes:21</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+
+            <!-- DisLikes dropdown -->
+            <div class="dropdown">
+                <button class=" btn btn-sm btn-warning"><i class="fa fa-thumbs-down">&nbsp;</i>Dislikes:21</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <!-- Footer End -->
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <button anme="button" type="button" class="btn btn-sm-btn btn-danger" (click)="draftComment()">Post Comment</button>
+                    <br>
+                    <!-- <form action="">
+                        <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
+                        <button class="btn btn-sm btn-info" type="button" name="button">Submit</button>
+                        <button class="btn btn-sm btn-warning">Cancel</button>
+                    </form> -->
+
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

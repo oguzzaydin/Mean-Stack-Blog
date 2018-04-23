@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard,NotAuthGuard } from './guards'
+import { BlogComponent } from './components/blog/blog.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,// Register Route
     canActivate:[NotAuthGuard]
+  },
+  {
+    path: 'blog',
+    component: BlogComponent
   },
   {
     path:'login',
