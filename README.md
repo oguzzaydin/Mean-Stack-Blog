@@ -1,1 +1,5 @@
-# Mean-Stack-Blog with Angular
+
+# MongoDb
+# NodeJS
+# Angular2
+# ExpressJS
