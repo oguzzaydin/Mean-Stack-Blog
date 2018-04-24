@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
       this.email = profile.user.email;
     });
   }
-
+  
 
 
 }

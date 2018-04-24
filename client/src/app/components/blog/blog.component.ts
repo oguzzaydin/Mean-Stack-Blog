@@ -17,6 +17,7 @@ export class BlogComponent implements OnInit {
   form;
   processing = false;
   username;
+  blogPost;
 
   constructor(private formBuilder:FormBuilder, private authService:AuthService, private blogService: BlogService) {
     this.createNewBlogForm();
@@ -62,6 +63,8 @@ export class BlogComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.username = profile.user.username;
     });
+
+    this.getAllBlogs();
   }
 
   newBlogForm(){
@@ -70,6 +73,7 @@ export class BlogComponent implements OnInit {
 
   reloadBlogs(){
     this.loadingBlogs = true;
+    this.getAllBlogs();
     setTimeout(() => {
       this.loadingBlogs = false;
     }, 4000);
@@ -98,6 +102,7 @@ export class BlogComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
+        this.getAllBlogs();
        
         setTimeout(() => {
           this.newPost = false;
@@ -109,6 +114,12 @@ export class BlogComponent implements OnInit {
       }
     })
 
+  }
+
+  getAllBlogs(){
+    this.blogService.getAllBlogs().subscribe(data=> {
+        this.blogPost = data.message;        
+    });
   }
 
   draftComment(){

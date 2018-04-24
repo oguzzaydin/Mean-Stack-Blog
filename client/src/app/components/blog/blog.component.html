@@ -1,5 +1,11 @@
 <h1 class="page-header">Blog Feed</h1>
 
+<div class="row show-hide-message" *ngIf="message && newPost">
+    <div [ngClass]="messageClass">
+        {{message}}
+    </div>
+</div>
+
 
 <button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
 <button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()"><i class="fa fa-spinner"></i>&nbsp;&nbsp;Reload</button>
@@ -46,33 +52,31 @@
 </form>
 
 <div *ngIf="!newPost" style="padding-top:2rem;">
-    <div class="card">
+    <div class="card" *ngFor="let blog of blogPost">
         <div class="card-header bg-primary text-white">
-            <h3 class="card-title">Post Title</h3>
+            <h3 class="card-title">{{ blog.title }}</h3>
         </div>
         <div class="card-body card-text">
-            Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet,
-            consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter
-            elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit Lorem ipsum sit amet, consectuter elit
+            {{ blog.body }}
         </div>
 
         <!-- Footer Start -->
         <div class="card-footer">
 
-            <p class="card-text"><strong>Posted By : </strong>oguzhan</p>
-            <p class="card-text"><strong>Date:</strong>June 20, 2017</p>
+            <p class="card-text"><strong>Posted By : </strong>{{ blog.createdBy }}</p>
+            <p class="card-text"><strong>Date:</strong>{{ blog.createdAt | date: 'MMM dd,yyyy'}}</p>
 
-            <div>
-                <p class="card-text"><strong>Likes :</strong>25</p>
-                <p class="card-text"><strong>Dislikes :</strong>12</p>
+            <div *ngIf="username === blog.createdBy">
+                <p class="card-text"><strong>Likes :</strong>{{ blog.likes}}</p>
+                <p class="card-text"><strong>Dislikes :</strong>{{ blog.dislikes }}</p>
 
             </div>
-            <a href=""><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
-            <a href=""><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+            <a [routerLink]="['/edit-blog/',blog._id]" *ngIf="username === blog.createdBy"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+            <a [routerLink]="['/delete-blog/',blog._id]" *ngIf="username === blog.createdBy"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
 
             <!-- Likes dropdown -->
             <div class="dropdown">
-                <button class=" btn btn-sm btn-success"><i class="fa fa-thumbs-up">&nbsp;</i>Likes:21</button>
+                <button class=" btn btn-sm btn-success" *ngIf="username !== blog.createdBy"><i class="fa fa-thumbs-up">&nbsp;</i>Likes:21</button>
                 <div class="dropdown-content">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
@@ -83,7 +87,7 @@
 
             <!-- DisLikes dropdown -->
             <div class="dropdown">
-                <button class=" btn btn-sm btn-warning"><i class="fa fa-thumbs-down">&nbsp;</i>Dislikes:21</button>
+                <button class=" btn btn-sm btn-warning" *ngIf="username !== blog.createdBy"><i class="fa fa-thumbs-down">&nbsp;</i>Dislikes:21</button>
                 <div class="dropdown-content">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>

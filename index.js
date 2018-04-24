@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const config = require('./config/database');
 const path = require('path');
 const authentication = require('./routes/authentication')(router);
@@ -14,7 +15,6 @@ app.use(morgan('dev')); //console log  server request/response time
 
 
 
-mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
     if (err) {
         console.log('Could Not connect to database: ', err);
