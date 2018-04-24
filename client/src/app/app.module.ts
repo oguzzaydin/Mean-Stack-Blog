@@ -18,7 +18,8 @@ import { BlogComponent } from './components/blog/blog.component';
 import { BlogService } from './services/blog.service';
 import { EditBlogComponent } from './components/blog/edit-blog/edit-blog.component';
 import { FormsModule } from '@angular/forms';
-import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component'
+import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
+import { PublicProfileComponent } from './components/public-profile/public-profile.component'
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.c
     ProfileComponent,
     BlogComponent,
     EditBlogComponent,
-    DeleteBlogComponent
+    DeleteBlogComponent,
+    PublicProfileComponent
 
 
   ],
